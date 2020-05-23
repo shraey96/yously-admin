@@ -1,26 +1,21 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Suspense } from "react"
+import { Route } from "react-router-dom"
+
+import "./style.scss"
+const Main = React.lazy(() =>
+  import(/* webpackChunkName: 'Main' */ "pages/Main")
+)
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Suspense fallback={<p>loading...</p>}>
+        <Route exact path="/:section?">
+          <Main />
+        </Route>
+      </Suspense>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
